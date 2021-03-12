@@ -5,19 +5,22 @@ using UnityEngine;
 public class PlayerControls : MonoBehaviour
 {
     // Start is called before the first frame update
+    private static string PaddleOneOwner => "PLAYER";
+    private static string PaddleTwoOwner => "OPPONENT";
+
+    private static float InitialSpeed = 10.0f;
+    private static float InitialBoundY = 2.25f;
+
     [SerializeField]
     private KeyCode moveUp = KeyCode.W;
      [SerializeField]
     private KeyCode moveDown = KeyCode.S;
      [SerializeField]
-    private float speed = 10.0f;
+    private float speed = InitialSpeed;
      [SerializeField]
-    private float boundY = 2.25f;
+    private float boundY = InitialBoundY;
      [SerializeField]
     private Rigidbody2D rigidBody2d;
-
-    private static string PaddleOneOwner => "PLAYER";
-    private static string PaddleTwoOwner => "OPPONENT";
 
     void Start()
     {
@@ -25,8 +28,7 @@ public class PlayerControls : MonoBehaviour
         rigidBody2d = rigidbody2D1;
 
         string tagName = rigidBody2d.tag.ToUpper();
-
-        if(tagName == PaddleTwoOwner)
+        if (tagName == PaddleTwoOwner)
         {
             moveUp = KeyCode.UpArrow;
             moveDown = KeyCode.DownArrow;
@@ -36,7 +38,7 @@ public class PlayerControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       Vector2 vel = rigidBody2d.velocity;
+        var vel = rigidBody2d.velocity;
         if (Input.GetKey(moveUp)) 
         {
             vel.y = speed;
@@ -52,7 +54,7 @@ public class PlayerControls : MonoBehaviour
 
         rigidBody2d.velocity = vel;
 
-        Vector3 pos = transform.position;
+        var pos = transform.position;
         if (pos.y > boundY) 
         {
             pos.y = boundY;
