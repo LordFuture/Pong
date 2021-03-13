@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class PlayerControls : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -11,15 +10,11 @@ public class PlayerControls : MonoBehaviour
     private static float InitialSpeed = 10.0f;
     private static float InitialBoundY = 2.25f;
 
-    [SerializeField]
     private KeyCode moveUp = KeyCode.W;
-     [SerializeField]
     private KeyCode moveDown = KeyCode.S;
-     [SerializeField]
     private float speed = InitialSpeed;
-     [SerializeField]
     private float boundY = InitialBoundY;
-     [SerializeField]
+
     private Rigidbody2D rigidBody2d;
 
     void Start()
