@@ -56,10 +56,4 @@ public class BallControl : MonoBehaviour
         rigidBody2d = GetComponent<Rigidbody2D>();
         Invoke(GoBallFunction, WaitTimeBeforeExecutionInSeconds);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
