@@ -15,50 +15,55 @@ public class PlayerControls : MonoBehaviour
     private float speed = InitialSpeed;
     private float boundY = InitialBoundY;
 
-    private Rigidbody2D rigidBody2d;
+    private Rigidbody2D rigidBody2d = null;
 
     void Start()
     {
-        Rigidbody2D rigidbody2D1 = GetComponent<Rigidbody2D>();
-        rigidBody2d = rigidbody2D1;
+        rigidBody2d = GetComponent<Rigidbody2D>();
 
-        string tagName = rigidBody2d.tag.ToUpper();
-        if (tagName == PaddleTwoOwner)
+        if(rigidBody2d != null)
         {
-            moveUp = KeyCode.UpArrow;
-            moveDown = KeyCode.DownArrow;
+            string tagName = rigidBody2d.tag.ToUpper();
+            if (tagName == PaddleTwoOwner)
+            {
+                moveUp = KeyCode.UpArrow;
+                moveDown = KeyCode.DownArrow;
+            }
         }
     }
 
     // FixedUpdate is called once per fixed time interval, Use with any component that has physics
     void FixedUpdate()
     {
-        var vel = rigidBody2d.velocity;
-        if (Input.GetKey(moveUp)) 
+        if(rigidBody2d != null)
         {
-            vel.y = speed;
-        }
-        else if (Input.GetKey(moveDown))
-        {
-            vel.y = -speed;
-        }
-        else 
-        {
-            vel.y = 0;
-        }
+            var vel = rigidBody2d.velocity;
+            if (Input.GetKey(moveUp)) 
+            {
+                vel.y = speed;
+            }
+            else if (Input.GetKey(moveDown))
+            {
+                vel.y = -speed;
+            }
+            else 
+            {
+                vel.y = 0;
+            }
 
-        rigidBody2d.velocity = vel;
+            rigidBody2d.velocity = vel;
 
-        var pos = transform.position;
-        if (pos.y > boundY) 
-        {
-            pos.y = boundY;
+            var pos = transform.position;
+            if (pos.y > boundY) 
+            {
+                pos.y = boundY;
+            }
+            else if (pos.y < -boundY) 
+            {
+                pos.y = -boundY;
+            }
+            
+            transform.position = pos;
         }
-        else if (pos.y < -boundY) 
-        {
-            pos.y = -boundY;
-        }
-        
-        transform.position = pos;        
     }
 }
