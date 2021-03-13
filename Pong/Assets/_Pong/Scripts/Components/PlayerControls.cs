@@ -30,8 +30,8 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    // FixedUpdate is called once per fixed time interval, Use with any component that has physics
+    void FixedUpdate()
     {
         var vel = rigidBody2d.velocity;
         if (Input.GetKey(moveUp)) 
