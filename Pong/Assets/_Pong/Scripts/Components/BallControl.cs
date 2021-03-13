@@ -13,6 +13,7 @@ public class BallControl : MonoBehaviour
     private static float NegativeX = -20.0f;
     private static float NegativeY = -15.0f;
     private static float WaitTimeBeforeExecutionInSeconds = 2.0f;
+    private static float RestartimeBeforeExecutionInSeconds = 1.0f;
     private static string GoBallFunction = "GoBall";
 
     void GoBall()
@@ -26,6 +27,28 @@ public class BallControl : MonoBehaviour
         else
         {
             rigidBody2d.AddForce(new Vector2(NegativeX, NegativeY));
+        }
+    }
+    
+    void ResetBall()
+    {
+        rigidBody2d.velocity = Vector2.zero;
+        transform.position = Vector2.zero;
+    }    
+
+    void RestartGame()
+    {
+        ResetBall();
+        Invoke(GoBallFunction, RestartimeBeforeExecutionInSeconds);
+    }
+    void OnCollisionEnter2D (Collision2D coll) 
+    {
+        if(coll.collider.CompareTag("Player"))
+        {
+            Vector2 vel;
+            vel.x = rigidBody2d.velocity.x;
+            vel.y = (rigidBody2d.velocity.y / 2) + (coll.collider.attachedRigidbody.velocity.y / 3);
+            rigidBody2d.velocity = vel;
         }
     }
     void Start()
