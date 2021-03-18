@@ -18,27 +18,20 @@ public class BallControl : MonoBehaviour
     void GoBall()
     {
         float rand = Random.Range(MinInclusive, MaxInclusive);
-
-        if (rigidBody2d != null)
+        if (rand < 1)
         {
-            if (rand < 1)
-            {
-                rigidBody2d.AddForce(new Vector2(PositiveX, NegativeY));
-            }
-            else
-            {
-                rigidBody2d.AddForce(new Vector2(NegativeX, NegativeY));
-            }
+            rigidBody2d.AddForce(new Vector2(PositiveX, NegativeY));
+        }
+        else
+        {
+            rigidBody2d.AddForce(new Vector2(NegativeX, NegativeY));
         }
     }
-    
+
     void ResetBall()
     {
-        if(rigidBody2d != null)
-        {
-            rigidBody2d.velocity = Vector2.zero;
-            transform.position = Vector2.zero;
-        }
+        rigidBody2d.velocity = Vector2.zero;
+        transform.position = Vector2.zero;
     }    
 
     void RestartGame()
@@ -48,23 +41,17 @@ public class BallControl : MonoBehaviour
     }
     void OnCollisionEnter2D (Collision2D coll) 
     {
-        if(rigidBody2d != null)
+        if(coll.collider.CompareTag("Player"))
         {
-            if(coll.collider.CompareTag("Player"))
-            {
-                Vector2 vel;
-                vel.x = rigidBody2d.velocity.x;
-                vel.y = (rigidBody2d.velocity.y / 2) + (coll.collider.attachedRigidbody.velocity.y / 3);
-                rigidBody2d.velocity = vel;
-            }
+            Vector2 vel;
+            vel.x = rigidBody2d.velocity.x;
+            vel.y = (rigidBody2d.velocity.y / 2) + (coll.collider.attachedRigidbody.velocity.y / 3);
+            rigidBody2d.velocity = vel;
         }
     }
     void Start()
     {
-        if(rigidBody2d != null)
-        {
-            rigidBody2d = GetComponent<Rigidbody2D>();
-            Invoke(GoBallFunction, WaitTimeBeforeExecutionInSeconds);
-        }
+        rigidBody2d = GetComponent<Rigidbody2D>();
+        Invoke(GoBallFunction, WaitTimeBeforeExecutionInSeconds);
     }
 }
