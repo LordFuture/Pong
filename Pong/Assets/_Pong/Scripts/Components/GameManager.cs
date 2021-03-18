@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     private static int PlayerScore2 = 0;
     public GUISkin layout = null;
     private GameObject theBall = null;
-
     public static void Score (string wallID) 
     {
         if (wallID == "RightWall")
@@ -59,7 +58,8 @@ public class GameManager : MonoBehaviour
                 theBall.SendMessage("ResetBall", null, SendMessageOptions.RequireReceiver);
             }
             
-        } else if (PlayerScore2 == 10)
+        } 
+        else if (PlayerScore2 == 10)
         {
             GUI.Label(new Rect(Screen.width / 2 - 150, 200, 2000, 1000), "PLAYER TWO WINS");
             if(theBall != null)

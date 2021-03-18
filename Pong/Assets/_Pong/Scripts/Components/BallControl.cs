@@ -8,7 +8,6 @@ public class BallControl : MonoBehaviour
     private Rigidbody2D rigidBody2d = null;
     private static float MinInclusive = 0.0f;
     private static float MaxInclusive = 2.0f;
-
     private static float PositiveX = 20.0f;
     private static float NegativeX = -20.0f;
     private static float NegativeY = -15.0f;
