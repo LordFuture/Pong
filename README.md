@@ -58,7 +58,8 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    // FixedUpdate is called once per fixed time interval, Use with any component that has physics
+    // FixedUpdate is called once per fixed time interval, Use with any component
+    // that has physics
     void FixedUpdate()
     {
         float paddleVelocity = Input.GetAxisRaw(axis);
