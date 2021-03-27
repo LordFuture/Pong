@@ -5,7 +5,7 @@ using UnityEngine;
 public class BallControl : MonoBehaviour
 {
     // Start is called before the first frame update
-    private Rigidbody2D rigidBody2d = null;
+    private Rigidbody2D ball = null;
     private static float MinInclusive = 0.0f;
     private static float MaxInclusive = 2.0f;
     private static float PositiveX = 20.0f;
@@ -14,23 +14,27 @@ public class BallControl : MonoBehaviour
     private static float WaitTimeBeforeExecutionInSeconds = 2.0f;
     private static float RestartimeBeforeExecutionInSeconds = 1.0f;
     private static string GoBallFunction = "GoBall";
-
+    void Start()
+    {
+        ball = GetComponent<Rigidbody2D>();
+        Invoke(GoBallFunction, WaitTimeBeforeExecutionInSeconds);
+    }
     void GoBall()
     {
         float rand = Random.Range(MinInclusive, MaxInclusive);
         if (rand < 1)
         {
-            rigidBody2d.AddForce(new Vector2(PositiveX, NegativeY));
+            ball.AddForce(new Vector2(PositiveX, NegativeY));
         }
         else
         {
-            rigidBody2d.AddForce(new Vector2(NegativeX, NegativeY));
+            ball.AddForce(new Vector2(NegativeX, NegativeY));
         }
     }
 
     void ResetBall()
     {
-        rigidBody2d.velocity = Vector2.zero;
+        ball.velocity = Vector2.zero;
         transform.position = Vector2.zero;
     }    
 
@@ -44,14 +48,9 @@ public class BallControl : MonoBehaviour
         if(coll.collider.CompareTag("Player"))
         {
             Vector2 vel;
-            vel.x = rigidBody2d.velocity.x;
-            vel.y = (rigidBody2d.velocity.y / 2) + (coll.collider.attachedRigidbody.velocity.y / 3);
-            rigidBody2d.velocity = vel;
+            vel.x = ball.velocity.x;
+            vel.y = (ball.velocity.y / 2) + (coll.collider.attachedRigidbody.velocity.y / 3);
+            ball.velocity = vel;
         }
-    }
-    void Start()
-    {
-        rigidBody2d = GetComponent<Rigidbody2D>();
-        Invoke(GoBallFunction, WaitTimeBeforeExecutionInSeconds);
     }
 }
